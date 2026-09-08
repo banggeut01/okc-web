@@ -218,3 +218,27 @@ Timestamps use ISO 8601 (UTC). This file is APPEND-ONLY — never overwritten.
 **Context**: INCEPTION / Workflow Planning → Application Design transition.
 
 ---
+
+## Application Design — Part 1 (Plan) PRESENTED
+**Timestamp**: 2026-09-08T03:35:00Z
+**User Input**: (pending — Part 1 planning gate presented this turn)
+**AI Response**: Authored `aidlc-docs/inception/plans/application-design-plan.md` (comprehensive). Scope note: frontend screens/IA/tokens already fixed by seeded ui-screens.md/design-system.md → Application Design focuses comprehensive on the BACKEND service/component layer + dependency contracts + adapter boundary, with frontend wiring contract only. Pre-filled 11 context-appropriate design questions with hackathon-recommended answers (per user's standing "추천값" preference): Q1 single-crate module-per-unit; Q2 OkcEngine trait boundary (ADR-0002); Q3 SQLite for okc-web state; Q4 server-side cookie session (argon2/bcrypt); Q5 hashed high-entropy upload tokens, one-time display; Q6 single-owner in-process worker+mpsc queue (NFR-CONC-1/PROJECT_BUSY); Q7 client polling (TanStack Query); Q8 explicit CuratorDecision enum (no winner-select variant, C3); Q9 REST+JSON, cookie/bearer split, single OkcError→HTTP map; Q10 Next.js App Router + TanStack Query; Q11 dev path-dep + CI commit-pin (hash TBD). Included Part 2 generation checklist (components.md, component-methods.md, services.md, component-dependency.md, application-design.md) + comprehensive deep-dive points + a provisional backend component map (U0–U6). Presenting Part 1 gate: confirm/tweak recommended answers before Part 2 generation. Do NOT proceed to generation until user confirms.
+**Context**: INCEPTION / Application Design Part 1 — plan authored with pre-filled answers, awaiting user confirmation.
+
+---
+
+## Application Design — Part 1 APPROVED (Option B) + Part 2 Generation STARTED
+**Timestamp**: 2026-09-08T03:45:00Z
+**User Input**: "B 이 다음 플로우들 알려줘. 지금 ai dlc 한 턴 돌기위해 어디까지 왔는지 진행사항 알고 싶어."
+**AI Response**: User approved Part 1 design decisions (Option B — all 11 recommended answers accepted as-is) and additionally requested a roadmap of the remaining AI-DLC flows + current progress. Actions: (1) recorded Part 1 approval, marked application-design-plan.md decisions locked; (2) launched Part 2 comprehensive generation as a background workflow — Design phase (4 domain designers: U0 adapter/engine/queue/errors/audit · U1+U2 auth/upload/persistence · U3+U4 orchestration/review decision-surface · U5+U6 serving/mcp-contract/frontend-wiring) → Verify phase (1 adversarial verifier checking adapter methods against okc-core actual code per ADR-0002 + cross-artifact consistency) → Synthesize phase (1 synthesizer producing the 5 artifacts: components.md, component-methods.md, services.md, component-dependency.md, application-design.md with validated Mermaid + text alternatives); (3) presented the full remaining-flow roadmap to the user (INCEPTION tail → CONSTRUCTION per-unit loop → Build & Test → runnable demo). Part 2 artifacts will be written on workflow completion, then the Application Design completion+approval gate presented. Do NOT proceed to Units Generation until user confirms.
+**Context**: INCEPTION / Application Design Part 1 approved → Part 2 generation in progress (background workflow).
+
+---
+
+## Cross-Module Integration Intent + Repo-Merge Strategy DECIDED
+**Timestamp**: 2026-09-08T03:55:00Z
+**User Input**: "이따가 대략적으로 구현해놓고 다른 모듈 (mcp, hook) 이랑 git repo 를 합칠라고해. 그러면 이때까지 한 내용 문서로 남겨주면 다른 모듈이랑 합칠때 괜찮겠지" + (AskUserQuestion answers) repo-merge = "모노레포 (Recommended)"; hook module = "Obsidian 플러그인/훅".
+**AI Response**: Captured the module ecosystem: okc-core (Rust engine dependency) ← okc-web (this platform) → okc-mcp (RAG consumer, deferred) ; and hook = an Obsidian plugin (client-side) that watches Vault events and auto-uploads to okc-web's existing token upload endpoint (/u/{token}/upload). The two external modules plug into okc-web's ALREADY-DESIGNED contracts: hook → upload contract (FR-UP-2, screens E2-3/4); okc-mcp → serving contract (FR-SRV-1..3, screen E5-4). Repo-merge target = MONOREPO. Action: creating a cross-module integration handoff doc at aidlc-docs/integration/module-integration-guide.md (module map + ownership/boundaries + 3 cross-module contracts + monorepo target layout + shared-concerns + current-status snapshot + merge checklist), to be enriched with the finalized component map after Application Design Part 2 completes. Saved a project memory. This does NOT change the AI-DLC stage state (still Application Design Part 2 in progress).
+**Context**: Cross-cutting / integration planning — informs future repo consolidation; parallel to the running Application Design workflow.
+
+---
