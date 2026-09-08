@@ -1,0 +1,164 @@
+# AI-DLC Audit Log
+
+Complete, chronological record of user inputs and AI responses for the okc-web project.
+Timestamps use ISO 8601 (UTC). This file is APPEND-ONLY — never overwritten.
+
+---
+
+## Initial User Request (Software Development)
+**Timestamp**: 2026-09-08T02:02:15Z
+**User Input**: "AIDLC 이용해서 아래 내용으로 requirment부터 만들어줘.
+
+@../okc-core를 이용해서 obsidian vault 통합 웹 플랫폼을 만들어줘.
+1. 권한 관리를 통해 부서간 개인 vault들을 통합 하는 서비스
+2. 관리자 권한을 가진 사람이 통합을 할 수 있게 함.
+3. 합치는 과정에서 okc-core가 conflict를 뱉으면 관리자가 확인, 선택해서 통합
+4. 개인마다 local vault를 업로드 할 수 있는 URL또는 API와 token을 제공
+5. 합쳐진 vault를 okc-mcp에서 obsidian vault를 RAG로 사용하도록 연결할 수 있는 URL또는 API 제공
+(okc-mcp는 현재 미구현으로 local obisian vault를 만드는 mcp이자 vault를 RAG로 이용해서 사용할 수 있게 만드는것)"
+**AI Response**: Displayed AI-DLC welcome message (once). Began INCEPTION phase → Workspace Detection.
+**Context**: INCEPTION / Workspace Detection — initial request captured verbatim.
+
+---
+
+## Workspace Detection
+**Timestamp**: 2026-09-08T02:02:15Z
+**User Input**: (none — informational stage, no approval required)
+**AI Response**: Scanned workspace root `c:/Users/genie/workplace/okc-web`. No source code, no build files present (only the AI-DLC install: CLAUDE.md, .aidlc-rule-details/, and aidlc-docs/). Found a stray `requirements.zip` containing a "테이블오더"(table-order / restaurant ordering) requirements set — REVIEWED and determined UNRELATED to this request; NOT used as input. No existing `aidlc-docs/aidlc-state.md` → new project. Determined project type = **Greenfield** (okc-web is new). Note: `@../okc-core` is a separate sibling repository consumed as a dependency, not part of this workspace, so no Reverse Engineering of okc-web is required; okc-core is explored separately to ground requirements.
+**Context**: INCEPTION / Workspace Detection — greenfield determination; created aidlc-state.md; auto-proceeding to Requirements Analysis.
+
+---
+
+## Requirements Analysis — Intent Analysis & Grounding
+**Timestamp**: 2026-09-08T02:02:15Z
+**User Input**: (none — analysis stage)
+**AI Response**: Performed intent analysis — Request Type: **New Project (greenfield web platform)**; Scope: **Cross-system** (okc-web + okc-core dependency + future okc-mcp); Complexity: **Complex**; Clarity: mostly clear intent but many architectural decisions unspecified → **Comprehensive depth**. Ran a 7-agent exploration workflow over okc-core to ground requirements; produced `okc-core-capability-analysis.md`. Key findings: okc-core has NO auth/RBAC/multi-tenancy, NO HTTP/upload/token/serving/RAG layer, NO pick-a-winner conflict API (contradictions preserved, structural conflicts dropped, critic Major/Critical un-waivable), a hard 10-source/project cap, hash-bound single-run approvals, Markdown-only pre-stable 0.3.0. Recommended integration: Rust backend linking okc-interop.
+**Context**: INCEPTION / Requirements Analysis — intent analysis + okc-core capability grounding.
+
+---
+
+## Requirements Analysis — Clarifying Questions Posted (GATE)
+**Timestamp**: 2026-09-08T02:02:15Z
+**AI Response**: Created `aidlc-docs/inception/requirements/requirement-verification-questions.md` with 13 questions (10 architecture/scope decisions grounded in okc-core reality + 3 extension opt-ins: Security Baseline, Resiliency Baseline, Property-Based Testing). Written in Korean per user's language. Presented to user and STOPPED at the Requirements Analysis gate — will not generate requirements.md until all answers are received and validated for contradictions/ambiguities.
+**Context**: INCEPTION / Requirements Analysis — Step 6 gate; awaiting user answers.
+
+---
+
+## Requirements Analysis — Answers Filled (Recommended Values)
+**Timestamp**: 2026-09-08T02:02:15Z
+**User Input**: "추천값으로 채워줘" (fill the answers with recommended values)
+**AI Response**: Filled all 13 clarifying questions in `requirement-verification-questions.md` with hackathon-appropriate recommended values: Q1=A (single-org, single process), Q2=B (simple token/password + role flag), Q3=X (limit demo to ≤10 sources, federation not implemented; fall back to B pre-aggregation if >10 needed), Q4=A (reinterpret conflict as approve/waive/omit/regenerate — no core changes), Q5=A (freeze-then-run), Q6=A (okc-web token store + local disk landing → add_source), Q7=A (okc-web serves read-only API, defer okc-mcp), Q8=A (Rust+axum linking okc-interop, with caveat to switch to Python if team not Rust-fluent), Q9=A (single long-lived engine process, serialized execution), Q10=A (accept Markdown-only pre-stable 0.3.0, pin commit), Q11=B (skip Security extension), Q12=B (skip Resiliency extension), Q13=C (skip PBT). Q1 was previously set to A by the user directly. Validated the answer set for internal contradictions/ambiguities — **consistent** (single-org + simple-auth + ≤10 sources + freeze-then-run + Rust/interop + single-process + Markdown-only all mutually coherent for a hackathon PoC). Recorded Extension Configuration (all opted OUT) in aidlc-state.md.
+**Context**: INCEPTION / Requirements Analysis — answers received & validated; proceeding to generate requirements.md.
+
+---
+
+## Requirements Analysis — requirements.md Generated (GATE)
+**Timestamp**: 2026-09-08T02:02:15Z
+**User Input**: (continuation of "추천값으로 채워줘" — generate requirements from the filled answers)
+**AI Response**: Generated `aidlc-docs/inception/requirements/requirements.md` at **Comprehensive** depth (Korean), grounded in `okc-core-capability-analysis.md` and the 13 filled answers. Contents: intent analysis (New Project / Cross-system / Complex), confirmed scope decisions table (Q1–Q13), actors/personas (admin-curator, contributor, viewer, okc-mcp consumer), functional requirements grouped by original request ①–⑤ (FR-AUTH-1..4, FR-UP-1..4, FR-INT-1..8, FR-SRV-1..3) with core-reuse vs greenfield tags and acceptance criteria, non-functional requirements (NFR-SEC/CONC/AVAIL/STORE/OBS/PORT/DET/PERF), out-of-scope/deferred list, constraints & assumptions from okc-core realities (C-1..7, A-1..2), boundary summary (core reuse / okc-web new / okc-mcp deferred), an end-to-end demo acceptance scenario, a traceability matrix (① → FRs), and key risks (R-1..5). Notable reinterpretations flagged: req ③ conflict "선택" reframed to approve/waive/omit/regenerate (no pick-a-winner API in core); req ⑤ RAG serving limited to okc-web read-only API with okc-mcp deferred. Updated aidlc-state.md: Requirements Analysis marked complete. **STOPPED at the Requirements Analysis review gate** — awaiting user "Request Changes" or "Approve & Continue to User Stories".
+**Context**: INCEPTION / Requirements Analysis — Step 9 review gate; requirements.md complete, awaiting approval before User Stories.
+
+---
+
+## Requirements Analysis — Approval Received
+**Timestamp**: 2026-09-08T02:02:15Z
+**User Input**: "승인" (approve)
+**AI Response**: User approved requirements.md. Requirements Analysis stage closed. Transitioning to **User Stories** stage (INCEPTION). Ran mandatory User Stories assessment → Execute=Yes (multi-persona, user-facing, complex, cross-team). Created `aidlc-docs/inception/plans/user-stories-assessment.md`. Proceeding to Part 1 (Planning): creating `story-generation-plan.md` with embedded clarifying questions.
+**Context**: INCEPTION / Requirements Analysis → User Stories transition; approval captured.
+
+---
+
+## User Stories — Story Plan Posted (Part 1 GATE)
+**Timestamp**: 2026-09-08T02:02:15Z
+**AI Response**: Created `aidlc-docs/inception/plans/story-generation-plan.md` (Part 1 Planning) with 7 embedded methodology questions (personas, breakdown approach, granularity, acceptance-criteria format, scope, prioritization, conflict-story representation). Following the user's established preference ("추천값으로 채워줘", hackathon speed), pre-filled all 7 with recommended values: Q1=A (admin+contributor+okc-mcp consumer, viewer absorbed), Q2=A (persona×epic hybrid aligned to original reqs ①–⑤), Q3=A (medium user-story granularity, INVEST), Q4=A (Given/When/Then), Q5=A (MVP demo path; deferred/federation/okc-mcp-internals out of scope), Q6=A (MoSCoW), Q7=A (reinterpreted conflict decision surfaces: approve/waive/omission/regenerate with okc-core constraints in AC). Analyzed the answer set for ambiguities/contradictions (Step 9) — **consistent** (all recommended, mutually coherent, aligned with approved requirements.md). Plan includes the Part 2 execution checklist (personas.md, stories.md, 5 epics, INVEST, traceability). **Approval prompt**: asking user to review story-generation-plan.md and either Request Changes or Approve the plan so Part 2 (Generation) can run. STOPPED at Part 1 approval gate.
+**Context**: INCEPTION / User Stories — Part 1 Step 12/13 gate; awaiting plan approval before generation.
+
+---
+
+## User Stories — Part 1 Plan Approved + Project Context (Hackathon) + UI Question
+**Timestamp**: 2026-09-08T02:02:15Z
+**User Input**: "승인할게. 그리고 지금 이 프로젝트는 해커톤 참석하고 있는 프로젝트야. 우리는 입상을 목표로 하고 있고 demo를 할 때 웹이 얼마나 깔끔하고 보기 쉽게 만들어졌는지가 중요해. 혹시 웹은 ui 가 화려한 것이 좋을까 ? 아니면 깔끔하게 구현하는 것이 좋을까 ?"
+**AI Response**: Recorded Part 1 story-generation-plan.md approval → launched Part 2 (Generation) as a background workflow (Run ID wf_aab11337-ff1): parallel draft of personas + 5 epics → completeness/INVEST/constraint-fidelity critic → finalize into stories.md & personas.md. Captured NEW PROJECT CONTEXT: this is a **hackathon** project; goal is **placement/winning**; **demo web must be clean and easy to read**. Answered the UI question with a recommendation: for hackathon judging, prioritize a **clean, legible, minimal UI** with 2–3 strategic focal "wow" moments (e.g., the conflict/critic review screen and the provenance/verify view), NOT an all-over flashy UI. This UX priority will be carried into Application Design / NFR / Code Generation stages (does not alter the approved requirements.md).
+**Context**: INCEPTION / User Stories — Part 1 approval + project-context intake (hackathon, demo polish priority) + UI direction guidance.
+
+---
+
+## UI Reference Recommendations (advisory)
+**Timestamp**: 2026-09-08T02:02:15Z
+**User Input**: "UI 디자인 참고할만한 사이트 추천해줘."
+**AI Response**: Recommended reference resources tailored to okc-web's clean review/knowledge-tool aesthetic: product refs (Linear, Vercel/Geist, Obsidian, Raycast), focal-screen refs (GitHub PR diff/review, Graphite, dbt/Dagster/Marquez lineage, Stripe dashboard), inspiration galleries (Mobbin, Refero, Godly, Land-book, Page Flows), implementation resources (shadcn/ui + Tailwind, Tremor, Tailwind UI/Untitled UI, Lucide, Inter/Geist, Radix Colors). Suggested starter stack: Next.js + Tailwind + shadcn/ui, Linear tone, wow-polish on E4 review + E5 provenance.
+**Context**: INCEPTION / advisory — UI reference sites (conversational).
+
+---
+
+## Application Design — UI Screen Inventory (user-directed, ahead of formal sequence)
+**Timestamp**: 2026-09-08T02:02:15Z
+**User Input**: "추천해준 리소스 괜찮은거같아. application design 단계에서 화면 별로 목록을 구체화해줘."
+**AI Response**: At the user's explicit direction, began the **Application Design** UI-screen deliverable AHEAD of the formal AI-DLC sequence (User Stories Part 2 is still running as workflow wf_aab11337-ff1; Workflow Planning not yet run). Noted this is user-directed sequencing (User Control principle) and that the formal gates (User Stories approval, Workflow Planning) will still be closed. Launched a background UI-design workflow (Run ID wf_251d2d34-939): parallel draft of IA/nav + design-system + 5 epics of screens → design-consistency/RBAC/demo-flow/constraint-fidelity critic → finalize into `aidlc-docs/inception/application-design/ui-screens.md` and `design-system.md`. Screens are grounded in requirements.md FRs + the fixed epic structure (E1–E5) + the agreed UI direction (clean/minimal, Linear tone; focal wow on E4 conflict/critic review + E5 provenance) + stack (Next.js/Tailwind/shadcn/Tremor/Lucide). Screen↔story-ID mapping to be reconciled once User Stories is approved.
+**Context**: INCEPTION / Application Design (UI screens) — user-directed early start; workflow launched, awaiting completion.
+
+---
+
+## User Stories — Part 2 Generation Complete (GATE)
+**Timestamp**: 2026-09-08T02:02:15Z
+**User Input**: (none — background workflow wf_aab11337-ff1 completed; system task-notification, not user input)
+**AI Response**: User Stories generation workflow completed (8 agents, 0 errors, ~351k subagent tokens). Parsed the workflow result and wrote `aidlc-docs/inception/user-stories/stories.md` (36KB) and `personas.md` (8.8KB). The completeness/INVEST/constraint-fidelity critic initially returned coverage_ok=FALSE due to ONE real demo-path gap — the NeedsProvider/NeedsDisclosure human-in-the-loop checkpoint (AI provider selection + remote disclosure/sensitive-data consent) had no actionable story, so the integration loop couldn't reach taxonomy — plus minor issues (4 non-testable AC, E3-S3 too large, curator_id duplication between E3-S1 and E1-S4, no-clobber mis-attributed to upload/serving, E4-S2 assumed opaque-JSON VersionedPayload vs the confirmed Rust typed-DTO stack, E1-S1 contributor-login contradicting token-only Persona 2, epic-index missing FR-INT-8). The finalize agent APPLIED ALL 10 recommended fixes: added new Must story **E3-S4** (provider/disclosure resolution), rewrote non-testable AC, split E3-S3, de-duplicated curator_id (single source = E1-S4), corrected no-clobber attribution to E3-S6 only, made E4-S2 stack-agnostic (verify schema version, reject unsupported via OkcError code), reconciled contributor as token-only, added E2-S6 contributor feedback coverage, fixed the epic index — reaching **coverage_ok=true**. Result: 3 personas (Administrator/Curator, Contributor, okc-mcp consumer), 5 epics, ~30 stories (22 Must) with Given/When/Then AC, MoSCoW, and full traceability (①–⑤ → story IDs); okc-core hard constraints (no pick-a-winner, Major/Critical un-waivable, contradictions preserved, ≤10 sources, hash-bound freeze-then-run, okc-mcp deferred, OkcError code-branching, curator_id unverified) faithfully reflected. Marked story-generation-plan.md Part 2 checkboxes [x]; marked User Stories complete in aidlc-state.md. **STOPPED at User Stories review gate** (Step 20/21) — awaiting Request Changes / Approve & Continue.
+**Context**: INCEPTION / User Stories — Part 2 Step 20 gate; stories.md & personas.md generated & verified, awaiting approval before Workflow Planning.
+
+---
+
+## Requirement ③ Conflict Semantics — User Challenge + Code Re-Verification (open)
+**Timestamp**: 2026-09-08T02:05:10Z
+**User Input**: "okc-core에서 conflict 가 나면 ui에서 conflict 난 것에 대해서 결정해서 하나만 저장하는 게 의도 인데 어떤점에서 모순이 있어. okc-core는 conflict중 어느것을 선택하지 않고 conflict 난 결과물만 보여주고 ui에서 사람이 직접 선택하고 선택한것만 저장하는거야."
+**AI Response**: User challenged the requirements/stories reinterpretation of req ③ (approve/waive/omission/regenerate, "no pick-a-winner"). Rather than defend the earlier claim, launched a 4-probe + synthesis code-verification workflow over okc-core (Run ID wf_05b84225-ff2) to confirm from source whether a human can select one side of a conflict/contradiction in the UI and persist ONLY the chosen content, or whether okc-core forces contradiction preservation — clarifying the three senses of "conflict" (critic finding / structural path·link / contradiction). No files edited pending the verified answer. Framed the three senses to the user and committed to answering with file:line evidence + a requirements.md/stories.md revision recommendation.
+**Context**: INCEPTION / Requirements ③ semantics — verification in progress (workflow running); artifact revision deferred until findings return.
+
+---
+
+## Hackathon Judging Criteria — Intake + Per-Stage Gate Established
+**Timestamp**: 2026-09-08T02:06:20Z
+**User Input**: "결과가 오면 알려줘. 지금 해커톤 행사의 심사기준을 미리 알려줄게. 정해진 기준을 충족할 수 있도록 매 단계마다 이를 확인해줘. https://main.d3gkmtkue9o7ly.amplifyapp.com/ [full criteria text: AI 심사 40% (인간 Gating 보정) + 인간 투표 60%; AI 심사 6항목 100점 — ① AI 협업/워크플로우 진정성(단계별 산출물 연결·앞 단계 결정 반영, 문서 양·도구 무관) ② 문제 정의(누구의 어떤 문제를 어떻게; 언제·빈도·대상 구체성; 시장성 제외) ③ 차별성(코드/설계로 확인되는 구조적 차별) ④ 실제 동작/구현 완성도(screenshots/ 또는 result/ 시연 스크린샷 필수; 빌드·진입점·락파일·CI, 에러/전역 핸들러, 진입점→구현 완결, 스크린샷↔README 정합, 핵심경로 스텁 없음) ⑤ 온보딩·사용성(막힘없는 시작·다음 행동 인지, 화면이 사용법 설명, 시작 경로·매뉴얼·UI 직관성·인터랙션 피드백·핵심 시나리오 end-to-end) ⑥ 유지보수성(구조·모듈화·설정분리, 시크릿 비하드코딩, 인증·인가·입력검증, 로깅·관측)]"
+**AI Response**: Captured the hackathon judging rubric as a MANDATORY per-stage gate. Recorded criteria in aidlc-state.md Project Context and in persistent memory (URL kept as canonical reference). Launched a 6-criterion decomposition + synthesis workflow to convert each criterion into concrete, checkable AI-DLC per-stage gate items + current-artifact gap assessment; result to be written to aidlc-docs/hackathon-judging-criteria.md and consulted at every stage completion gate going forward. Immediate implications flagged for later stages: C4 requires a screenshots/ (or result/) directory of working-screen captures + runnable build (deps/entry/lockfile/CI); C5 requires in-screen usability + one end-to-end core scenario; C6 requires secret management, RBAC (already central via FR-AUTH), input validation (already in FR-UP), and logging/observability (currently only NFR-OBS — may need strengthening).
+**Context**: INCEPTION / cross-cutting — judging criteria intake; per-stage compliance gate established.
+
+---
+
+## Progress + Background Inventory Request
+**Timestamp**: 2026-09-08T02:10:00Z
+**User Input**: "지금 진행도 알려줘. 그리고 백그라운드로 어떤 요청이 돌고있는지 알려줘."
+**AI Response**: Reported AI-DLC progress (INCEPTION: Workspace Detection done, Requirements done+approved, User Stories Part 2 complete awaiting approval gate, Workflow Planning next). Identified background tasks via ListAgents/TaskOutput: two local_workflows running at the time — UI screens (wf_251d2d34-939 / task wlmgtbq66) and criteria gate-map (wf_72553e63-11f / task wqh42rsmq); conflict probe (wf_05b84225-ff2) already completed. Listed pending user decisions: ③ conflict wording (A/B/C) and User Stories approval.
+**Context**: INCEPTION / status report.
+
+---
+
+## Criteria + UI Workflows Completed — Artifacts Landed
+**Timestamp**: 2026-09-08T02:12:30Z
+**User Input**: (none — two task-notifications: wqh42rsmq criteria gate-map, wlmgtbq66 UI screens — both completed)
+**AI Response**: Both background workflows completed. Extracted and wrote: `aidlc-docs/hackathon-judging-criteria.md` (32.5KB canonical per-stage judging gate) and `aidlc-docs/inception/application-design/ui-screens.md` (43KB, 24 screens; 3 focal "wow": E3-5 integration monitor, E4-3 cluster review, E5-2 provenance/verify) + `design-system.md` (22KB); UI critique coverage_ok=true. Criteria scorecard: C1 STRONG (dangling-reference risk — resolved by landing these two artifacts), C2/C3 PARTIAL (need standalone Problem Statement + WHEN/HOW-OFTEN + named-tool differentiation doc), C4/C5 GAP (no code/screenshots yet — expected in INCEPTION), C6 PARTIAL (logging/observability weakest). Per-stage gate index + top actions captured in the criteria doc (screenshots/ or result/, README, CI, lockfile reserved as Build&Test exit; add observability NFR).
+**Context**: INCEPTION / Application Design (UI screens landed, user-directed early) + cross-cutting (criteria doc created).
+
+---
+
+## Requirement ③ Follow-up — "Does core keep a conflict state?"
+**Timestamp**: 2026-09-08T02:13:10Z
+**User Input**: "conflict가 나면 core는 conflict 상태라고 따로 상태 유지를 해놓지 않아?"
+**AI Response**: Launched focused code-verification workflow (Run ID wf_91476e22-fe1 / task w8p7nf29p): 2 probes (IntegrationCheckpoint state-machine variants + persistence + compile gating; contradiction/critic-finding persistence — mutable state vs immutable hash-bound proposal data) + synthesis. Gave preliminary grounded answer: no top-level mutable "in-conflict, pick-a-winner-to-clear" flag; contradictions are immutable preserved data in the hash-bound SynthesisProposal; the real maintained state is the staged IntegrationCheckpoint + critic gate (blocking Major/Critical hold the run below compile = APPROVAL_REQUIRED); structural conflicts resolved/dropped in planning. Confirming exact enum variant names via the workflow.
+**Context**: INCEPTION / Requirements ③ semantics — conflict-state verification in progress.
+
+---
+
+## Requirement ③ — Conflict-State Verification COMPLETE + "Does core need modification for the pick-one flow?"
+**Timestamp**: 2026-09-08T02:20:00Z
+**User Input**: "방금 주신 심사기준 ③(차별성: 코드/설계로 확인되는 구조적 차별)에 이게 정확히 들어맞습니다. 흔한 병합 도구는 조용히 승자를 골라 정보를 버리지만, okc-web은 모순을 근거와 함께 보존하고 감사가능한 결정 표면을 제공 — 이건 \"새롭다\"는 주장이 아니라 코어 코드로 증명되는 구조적 차별입니다. E4 리뷰 화면을 데모 하이라이트로 잡는 이유이기도 합니다. UI는 \"승자 고르기\"가 아니라 \"모순을 명료하게 보여주고 + 관리자의 판단(승인/waive/omission/regenerate)을 감사 로그로 남기는\" 경험으로 설계하면 됩니다.\n\n--> 맞아. 너가 말해준대로 core가 보낸 것에 conflict가 발생하면 웹에선 관리자가 둘중에 하나를 선택해. 그리고 그걸 다시 core에게 전달해. 그러면 core는 그 이후부분을 처리하는거야. 혹시 core에서 수정해야하는 이유가 있을까?"
+**AI Response**: Conflict-state verification workflow wf_91476e22-fe1 COMPLETED (verdict PARTIAL). Code-confirmed: (a) NO top-level mutable "in-conflict/pick-winner-to-clear" flag — the only state enum is `IntegrationCheckpoint{NeedsProvider,NeedsSources,NeedsDisclosure,NeedsTaxonomy,NeedsClusters,ReadyToCompile,Verified}` (integration_service.rs:27-37), NOT stored but re-derived every checkpoint() call; (b) staged checkpoint + critic gate DOES function as "review-incomplete/compile-blocked" (approve_cluster rejects Major/Critical at integration_service.rs:374-383; no approval → checkpoint pinned NeedsClusters → compile fails "no current approved integration plan"; core defense OkcError::ApprovalStale at integration.rs:1074-1082); (c) contradictions are immutable hash-bound proposal DATA (integration.rs:275-291,304), never resolved/deleted, always re-rendered. Answered the modification question: the described loop (web collects admin DECISION → core → core processes rest) needs ZERO core modification — it already exists (approve_cluster/regenerate_cluster → ReadyToCompile derived → compile). Core modification is required ONLY for literal winner-select on contradiction claims (new API + winner field + validation/render changes + ADR-0024/ADR-0002 violations + loses C3 differentiation). Recommended keeping core unmodified. Posed decision fork via AskUserQuestion (A: decision-surface [recommended]; B: okc-web-layer preference annotation, core untouched; C: true winner-select requiring core fork). Awaiting user choice.
+**Context**: INCEPTION / Requirements ③ semantics — core-modification decision fork; conflict-state verification (wf_91476e22-fe1) complete.
+
+---
+
+## Requirement ③ — DECISION CONFIRMED: 경우 B (decision-surface, no core modification)
+**Timestamp**: 2026-09-08T02:24:00Z
+**User Input**: "경우 B 로 갈게. 경우 B — \"선택\" = 관리자의 결정(행동)을 고르는 것 (권장, 지금 설계)"
+**AI Response**: DECISION RECORDED. req-③ "conflict 선택" is DEFINITIVELY defined as **경우 B — decision-surface**: the admin's "selection" during conflict/critic review is a DECISION/ACTION — one of {approve cluster as-is (contradictions preserved) / regenerate with rationale / propose omission with rationale / waive minor finding with rationale}. The web collects this decision and passes it to okc-core (approve_cluster / regenerate_cluster); core then processes the rest (derives ReadyToCompile → compile). This is NOT winner-select on contradiction claims. **okc-core is NOT modified** (existing curator surfaces only; ADR-0002 adapter principle upheld). Contradictions remain immutable, hash-bound, preserved data. This preserves the C3 differentiation. Aligns with existing requirements (FR-INT-5/6, C-2), stories (Epic E4), personas (P1). req-③ scrutiny thread CLOSED. Next: run a lean consistency-audit workflow across INCEPTION artifacts to confirm no residual winner-select language + draft a traceable Decision Record (C1), then present the pending User Stories approval gate.
+**Context**: INCEPTION / Requirements ③ — DECISION FINAL (경우 B). Closes the ③ scrutiny thread opened earlier this session.
+
+---
