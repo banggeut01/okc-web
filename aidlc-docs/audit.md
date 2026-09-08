@@ -162,3 +162,19 @@ Timestamps use ISO 8601 (UTC). This file is APPEND-ONLY — never overwritten.
 **Context**: INCEPTION / Requirements ③ — DECISION FINAL (경우 B). Closes the ③ scrutiny thread opened earlier this session.
 
 ---
+
+## Git Repository Initialized — Commit Cadence Established
+**Timestamp**: 2026-09-08T02:35:00Z
+**User Input**: "okc-web 프로젝트를 별도 repo 에 git commit 이력을 같이 남기려고 해. 커밋도 이제부터 같이 남겨줘."
+**AI Response**: Initialized okc-web as its own git repo (branch `master`; global identity banggeut01 / genie121110@gmail.com — separate from okc-core). Added `.gitignore` (env/secrets, node_modules, target/, .next/, `.claude/settings.local.json`) + `.gitattributes` (LF normalization). Initial commit `25d8295` "chore: initialize okc-web repo with AI-DLC INCEPTION artifacts" — 46 files, 8951 insertions (aidlc-docs deliverables + CLAUDE.md + vendored `.aidlc-rule-details/`). Going-forward cadence: commit at each AI-DLC stage/gate completion (and meaningful deliverables) with the Co-Authored-By trailer; NO remote push without explicit user confirmation. Recorded as memory `okc-web-git-commit-cadence`. (This audit entry itself will be swept into the next stage commit.)
+**Context**: Process / version control setup — supports judging C1 (authenticity/traceability) + C6 (maintainability).
+
+---
+
+## req-③ Consistency Audit COMPLETE + Patches Applied + Decision Record Created
+**Timestamp**: 2026-09-08T02:40:00Z
+**User Input**: (none — background workflow wf_4b277935-b79 completed)
+**AI Response**: Consistency-audit workflow (9 agents over 8 INCEPTION artifacts) completed: coverage_ok=true, 4 residual issues found → resolved via 2 surgical patches (1 flagged issue intentionally left unpatched with sound rationale: "리뷰 & 해소" wording is shared across 5 docs and means critic-finding resolution, not contradiction removal — consistent with 경우 B). Applied: (1) okc-core-capability-analysis.md line 70 — reframed "req 3 needs new okc-core public API or re-interpretation" into "resolved by 경우 B (2026-09-08): decision-surface, okc-core unmodified, no winner-select API; ADR-0002/0024"; (2) story-generation-plan.md Q7 option C rejection rationale — added ADR-0024 principled ground (winner-select discards info; not merely deferred-for-API). Created aidlc-docs/inception/requirements/decision-records.md with the full req-③ 경우 B Decision Record (context / decision / 2 rejected alternatives / code grounding / traceability → FR-INT-5/6, C-2, R-1, Epic E4, Persona P1). All 8 INCEPTION artifacts now consistent with 경우 B; C1 traceability strengthened. Committing locally per cadence.
+**Context**: INCEPTION / Requirements ③ — consistency audit closed; Decision Record landed.
+
+---

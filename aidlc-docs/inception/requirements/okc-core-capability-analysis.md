@@ -67,7 +67,7 @@ PreparedCorpus → (sensitive preflight) → recorded embeddings/candidates
 
 ## 5. 주요 리스크 / 갭
 
-1. **req 3 (관리자가 conflict 해결책 선택)** 은 okc-core 모델과 근본적으로 불일치: 모순은 보존(승자 선택 API 없음), 구조적 path/link conflict는 내부 계산 후 **caller 도달 전 폐기**(ADR-0017 로 public overlay 폐지), critic Major/Critical은 **waive 불가**(regeneration만이 해소). → 문자 그대로의 req 3은 **신규 okc-core public API가 필요**하거나 approve/waive/omit/regenerate로 **재해석** 필요.
+1. **req 3 (관리자가 conflict 해결책 선택)** 은 okc-core 모델과 근본적으로 불일치: 모순은 보존(승자 선택 API 없음), 구조적 path/link conflict는 내부 계산 후 **caller 도달 전 폐기**(ADR-0017 로 public overlay 폐지), critic Major/Critical은 **waive 불가**(regeneration만이 해소). → **확정 결정(경우 B, 2026-09-08)으로 해소됨**: 관리자의 리뷰 '선택'은 승자 선택이 아니라 **결정(행동)** — {클러스터 이대로 승인(모순 보존) / 사유와 함께 regenerate / omission 제안(사유) / minor finding waive(사유)} 중 하나 — 이며, 웹은 이를 기존 `approve_cluster`/`regenerate_cluster` 표면으로만 전달하고 okc-core는 **수정하지 않음**(신규 public API·승자 선택 API 없음; ADR-0002 어댑터·ADR-0024 준수). 상세는 `decision-records.md` 참조.
 2. **req 4/5** 는 100% greenfield: HTTP 서버·업로드·토큰·서빙·RAG/vector store 전부 부재.
 3. **okc-mcp 부재**: 서빙이 지금 필요하면 RAG 티어가 okc-web으로 이동. mcp-adapter 스펙은 MCP를 "컴파일러 control-plane"으로 규정(자체 RAG 서버 아님) → "RAG 데이터 소스" 기대와 어긋날 수 있음.
 4. **auth 전무**: reqs 1·2 권한 모델 전부 okc-web 몫. `curator_id` 는 미검증 라벨이라 "관리자만 통합"을 자체적으로 강제 불가.
