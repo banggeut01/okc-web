@@ -5,7 +5,7 @@
 - **Project Type**: Greenfield
 - **Start Date**: 2026-09-08T02:02:15Z
 - **Current Phase**: INCEPTION
-- **Current Stage**: User Stories **APPROVED** (Option B, 2026-09-08) → **Workflow Planning IN PROGRESS**. (personas.md 3종 + stories.md 29 stories/5 epics; coverage_ok=true; consistency-audit passed.) Application Design UI-screens deliverable **LANDED** (application-design/ui-screens.md 43KB + design-system.md 22KB written; critique coverage_ok=true; user-directed early start — formal Application Design gate still pending, after Workflow Planning). Hackathon judging-criteria gate doc created (hackathon-judging-criteria.md). **req-③ RESOLVED** — user confirmed **경우 B** (관리자 '선택' = 결정 행동 {승인 as-is / regenerate / omission / minor waive} → core 전달 → core가 이후 처리; **승자 선택 아님**; **okc-core 무수정**; 모순은 불변·hash-bound로 보존 → C3 차별성 유지). Code-verified wf_91476e22-fe1 (PARTIAL: no mutable conflict flag; IntegrationCheckpoint 7-variant derived state + critic gate; contradictions immutable hash-bound data). ③ scrutiny thread CLOSED; consistency-audit PASSED (wf_4b277935-b79, coverage_ok=true across 8 artifacts; 2 patches applied) + Decision Record created (inception/requirements/decision-records.md).
+- **Current Stage**: **Workflow Planning APPROVED** (Option B, 2026-09-08) → **Application Design IN PROGRESS** (comprehensive). Plan generated via 3-lens panel. 3-lens 패널(demo-velocity / judging-criteria / engineering-correctness) 조정 → `inception/plans/execution-plan.md` 작성(Mermaid validated + text-alt). 결정: Application Design(comp.) + Units Generation(std.) EXECUTE; Functional Design selective(U3/U4 comp · U1/U2 std · U5/U6 skip); NFR Requirements(min.) · NFR Design(std.) · Infrastructure Design(min.) EXECUTE; Code Generation(comp.) + Build and Test(std., 하드-MUST screenshots/·CI·lockfile·README·PROCESS narrative 예약) EXECUTE; Operations SKIP. 유닛 7개(U0 어댑터/큐 → U1 Auth → U2 Upload → U3 Orchestration → U4 Review[E4 wow] → U5 Serving[E5 wow], U6 Frontend 인터리브). Risk=High. (직전: personas.md 3종 + stories.md 29 stories/5 epics; coverage_ok=true; consistency-audit passed.) Application Design UI-screens deliverable **LANDED** (application-design/ui-screens.md 43KB + design-system.md 22KB written; critique coverage_ok=true; user-directed early start — formal Application Design gate still pending, after Workflow Planning). Hackathon judging-criteria gate doc created (hackathon-judging-criteria.md). **req-③ RESOLVED** — user confirmed **경우 B** (관리자 '선택' = 결정 행동 {승인 as-is / regenerate / omission / minor waive} → core 전달 → core가 이후 처리; **승자 선택 아님**; **okc-core 무수정**; 모순은 불변·hash-bound로 보존 → C3 차별성 유지). Code-verified wf_91476e22-fe1 (PARTIAL: no mutable conflict flag; IntegrationCheckpoint 7-variant derived state + critic gate; contradictions immutable hash-bound data). ③ scrutiny thread CLOSED; consistency-audit PASSED (wf_4b277935-b79, coverage_ok=true across 8 artifacts; 2 patches applied) + Decision Record created (inception/requirements/decision-records.md).
 
 ## Project Context (non-derivable)
 - **Hackathon project** — goal is **placement/winning**. Demo quality matters: the web UI must be **clean and easy to read**. UI direction: clean/minimal with a few strategic focal "wow" screens (conflict/critic review, provenance/verify). Carry into Application Design / NFR / Code Generation.
@@ -45,18 +45,23 @@
 _All extensions opted OUT (hackathon PoC scope) → full rule files NOT loaded. Basic upload validation still applied as ordinary requirements, not as enforced extension rules._
 
 ## Stage Progress
-### 🔵 INCEPTION PHASE
-- [x] Workspace Detection
+
+### 🔵 INCEPTION Phase
+- [x] Workspace Detection — COMPLETED
 - [ ] Reverse Engineering (N/A — greenfield)
-- [x] Requirements Analysis (requirements.md generated at Comprehensive depth; user approved)
-- [x] User Stories (Part 2 complete — personas.md 3 personas + stories.md 29 stories/5 epics; coverage_ok=true; consistency-audit passed; **APPROVED by user 2026-09-08 (Option B)**)
-- [~] Workflow Planning (IN PROGRESS)
-- [ ] Application Design
-- [ ] Units Generation
+- [x] Requirements Analysis — COMPLETED (standard/comprehensive)
+- [x] User Stories — COMPLETED (29 stories / 5 epics; **APPROVED 2026-09-08, Option B**)
+- [x] Workflow Planning — COMPLETED (execution-plan.md; **APPROVED 2026-09-08, Option B**)
+- [~] Application Design — IN PROGRESS (comprehensive) (현재 단계)
+- [ ] Units Generation — EXECUTE (standard)
 
-### 🟢 CONSTRUCTION PHASE
-- [ ] (per-unit design + code generation — not yet started)
-- [ ] Build and Test
+### 🟢 CONSTRUCTION Phase (per-unit loop: U0→U1→U2→U3→U4→U5, U6 interleaved)
+- [ ] Functional Design — EXECUTE (selective: U3/U4 comprehensive · U1/U2 standard · U5/U6 skip)
+- [ ] NFR Requirements — EXECUTE (minimal)
+- [ ] NFR Design — EXECUTE (standard)
+- [ ] Infrastructure Design — EXECUTE (minimal)
+- [ ] Code Generation — EXECUTE (comprehensive) — ALWAYS, per-unit
+- [ ] Build and Test — EXECUTE (standard; 하드-MUST exit artifacts: screenshots/·CI·lockfile·README·PROCESS narrative·secret scan)
 
-### 🟡 OPERATIONS PHASE
-- [ ] Operations (placeholder)
+### 🟡 OPERATIONS Phase
+- [ ] Operations — SKIP (placeholder; 로컬 단일 프로세스 PoC, 범위 밖)
